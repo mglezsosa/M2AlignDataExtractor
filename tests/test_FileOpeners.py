@@ -1,5 +1,5 @@
 import unittest
-from m2aligndataextractor.fileopeners import *
+from m2aligndataextractor.fileopeners import VarFile, FunFile
 
 
 class FileOpenersTest(unittest.TestCase):

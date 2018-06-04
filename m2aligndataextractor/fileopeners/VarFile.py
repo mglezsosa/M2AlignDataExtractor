@@ -1,16 +1,10 @@
-class VarFile():
+from m2aligndataextractor.fileopeners.M2AlignFile import M2AlignFile
 
-    def __init__(self, filename):
-        self.filename = filename
-        self.open_file = open(self.filename)
 
-    def __enter__(self):
-        return self
-
-    def __iter__(self):
-        return self
+class VarFile(M2AlignFile):
 
     def __next__(self):
+        """Each iteration returns a sequence aligment fragment (consecutive lines until double linebreak)"""
         next_alignment = ''
         for line in self.open_file:
             if line == '\n' and next_alignment:
@@ -18,9 +12,3 @@ class VarFile():
             else:
                 next_alignment += line
         raise StopIteration
-
-    def __exit__(self, *args):
-        self.close()
-
-    def close(self):
-        self.open_file.close()

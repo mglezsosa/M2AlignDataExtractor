@@ -15,7 +15,7 @@ class SearcherTest(unittest.TestCase):
     def test_should_BestStrikeSearcher_return_best_strike_value_and_seq(self):
         bss = BestStrikeSearcher()
         for var_line, fun_line in zip(self.var_file, self.fun_file):
-            bss.process_line(var_line=var_line, fun_line=fun_line)
+            bss.process_line(var_alignment=var_line, fun_values=fun_line)
         self.assertEqual({
             'Best_strike_seq': """>1aab_
 ---GKGDPKKPRGKMSSYAFFVQTSREEHKKKHPDASVNFSEFSKKCSERWKTMSAKEKGKFEDMAKADKARYEREMKTY-IPP---------KGE
@@ -32,7 +32,7 @@ MKKLKKHPDFPKKPLTPYFRFFMEKRAKYAKLHPEMS-NL-DLTKILSKKYKELPEKKKMKYIQDFQREKQEFERNLARF
     def test_should_BestTCSearcher_return_best_tc_value_and_seq(self):
         btcs = BestTCSearcher()
         for var_line, fun_line in zip(self.var_file, self.fun_file):
-            btcs.process_line(var_line=var_line, fun_line=fun_line)
+            btcs.process_line(var_alignment=var_line, fun_values=fun_line)
         self.assertEqual({
             'Best_tc_seq': """>1aab_
 ------GKGDPKKPRGKMSSYAFFVQTSREEHKKKHPDASVNFSEFSKKCSERWKTMSAKEKGKFEDMAKADKARYEREMKTY----------IPPKGE
@@ -49,7 +49,7 @@ MKKLKKHPDFPKKP---LTPYFRFFMEKRAKYAKLHPE--MSNLDLTKILSKKYKELPEKKKMKYIQDFQREKQEFERNL
     def test_should_BestSPSearcher_return_best_sp_value_and_seq(self):
         bsps = BestSPSearcher()
         for var_line, fun_line in zip(self.var_file, self.fun_file):
-            bsps.process_line(var_line=var_line, fun_line=fun_line)
+            bsps.process_line(var_alignment=var_line, fun_values=fun_line)
         self.assertEqual({
             'Best_sp_seq': """>1aab_
 GK---GDPKKPRGKMSSYAFFVQTSREEHKKKHPDASVNFSEFSKKCSERWKTMSAKEKGKFEDMAKADKARYEREMKTY--------IPPKGE
@@ -66,7 +66,7 @@ MHIKKPLNAFMLYMKEMRANVVAESTL--KESAAINQILGRRWHALSREEQAKYYELARKERQLHMQLYPGWSARDNYGK
     def test_should_MedianStrikeSearcher_return_median_strike_value_and_seq(self):
         mss = MedianStrikeSearcher()
         for var_line, fun_line in zip(self.var_file, self.fun_file):
-            mss.process_line(var_line=var_line, fun_line=fun_line)
+            mss.process_line(var_aligment=var_line, fun_values=fun_line)
         mss.postprocessing()
         self.assertEqual({
             'Median_strike_val': 2.5550908331047784,
@@ -84,7 +84,7 @@ MKKLKKHPDFPKKP---LTPYFRFFMEKRAKYAKLHPEMS-NL-DLTKILSKKYKELPEKKKMKYIQDFQREKQEFERNL
     def test_should_MedianTCSearcher_return_median_strike_value_and_seq(self):
         mtcs = MedianTCSearcher()
         for var_line, fun_line in zip(self.var_file, self.fun_file):
-            mtcs.process_line(var_line=var_line, fun_line=fun_line)
+            mtcs.process_line(var_aligment=var_line, fun_values=fun_line)
         mtcs.postprocessing()
         self.assertEqual({
             'Median_tc_val': 2.0833333333333335,
@@ -102,7 +102,7 @@ MKKLKKHPDFPKKPLTPYFRFFMEKRAKYAKLHP--EMSNLDLTKILSKKYKELPEKKKMKYIQDFQREKQEFERNLARF
     def test_should_MedianSPSearcher_return_median_strike_value_and_seq(self):
         msps = MedianSPSearcher()
         for var_line, fun_line in zip(self.var_file, self.fun_file):
-            msps.process_line(var_line=var_line, fun_line=fun_line)
+            msps.process_line(var_aligment=var_line, fun_values=fun_line)
         msps.postprocessing()
         self.assertEqual({
             'Median_sp_val': 89.84375,

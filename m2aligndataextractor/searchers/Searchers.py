@@ -2,22 +2,37 @@ from .contracts.Searcher import Searcher
 
 
 class MaximumSearcher(Searcher):
+    """Base class for maximum value searches (and associated sequence)"""
     def __init__(self, name: str, col: int):
+        """
+        :param name: Name of the search objective.
+        :param col: Target column of the fun file.
+        """
         super(MaximumSearcher, self).__init__()
         self.name = name
         self.finds[self.name + '_seq'] = None
         self.finds[self.name + '_val'] = 0
         self.col = col
 
-    def process_line(self, var_line: str, fun_line: str):
-        col_val = fun_line[self.col]
+    def process_line(self, var_alignment: str, fun_values: list) -> None:
+        """
+        Updates the maximum value and associated sequence if value is greater
+        :param var_alignment: Next aligment in m2align var file.
+        :param fun_values: Next values in m2align fun file.
+        """
+        col_val = fun_values[self.col]
         if not self.finds[self.name + '_seq'] or self.finds[self.name + '_val'] < col_val:
-            self.finds[self.name + '_seq'] = var_line
+            self.finds[self.name + '_seq'] = var_alignment
             self.finds[self.name + '_val'] = col_val
 
 
 class MedianSearcher(Searcher):
+    """Base class for compute median searches (value and sequence)"""
     def __init__(self, name: str, col: int):
+        """
+        :param name: Name of the search objective.
+        :param col: Target column of the fun file.
+        """
         super(MedianSearcher, self).__init__()
         self.name = name
         self.finds[self.name + '_seq'] = None
@@ -26,11 +41,20 @@ class MedianSearcher(Searcher):
         self.alignments = []
         self.values = []
 
-    def process_line(self, var_line: str, fun_line: str):
-        self.values.append((fun_line[self.col], len(self.values)))
-        self.alignments.append(var_line)
+    def process_line(self, var_aligment: str, fun_values: list) -> None:
+        """
+        Stores the values in order to extract the median in postprocessing function.
+        :param var_alignment: Next aligment in m2align var file.
+        :param fun_values: Next values in m2align fun file.
+        """
+        self.values.append((fun_values[self.col], len(self.values)))
+        self.alignments.append(var_aligment)
 
-    def postprocessing(self):
+    def postprocessing(self) -> None:
+        """
+        Extract the median of the values and the associated sequence.
+        Picks the n/2 nth sequence (n/2 - 1 nth if even elements) even if there is a tie.
+        """
         self.values.sort()
         self.finds[self.name + '_seq'] = self.alignments[self.values[int((len(self.values) - 1) / 2)][1]]
         self.finds[self.name + '_val'] = self.values[int((len(self.values) - 1) / 2)][0]
