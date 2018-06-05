@@ -14,11 +14,11 @@ class Searcher:
         """Necessary actions before the search"""
         pass
 
-    def process_line(self, var_line: str, fun_line: str) -> None:
+    def process_line(self, var_alignment: str, fun_values: list) -> None:
         """
         Does necessary actions on lines while iterate over files
-        :param var_line: path to m2align var file.
-        :param fun_line: path to m2align fun file.
+        :param var_alignment: path to m2align var file.
+        :param fun_values: path to m2align fun file.
         """
         raise NotImplementedError
 

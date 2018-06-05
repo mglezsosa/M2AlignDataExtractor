@@ -41,14 +41,14 @@ class MedianSearcher(Searcher):
         self.alignments = []
         self.values = []
 
-    def process_line(self, var_aligment: str, fun_values: list) -> None:
+    def process_line(self, var_alignment: str, fun_values: list) -> None:
         """
         Stores the values in order to extract the median in postprocessing function.
         :param var_alignment: Next aligment in m2align var file.
         :param fun_values: Next values in m2align fun file.
         """
         self.values.append((fun_values[self.col], len(self.values)))
-        self.alignments.append(var_aligment)
+        self.alignments.append(var_alignment)
 
     def postprocessing(self) -> None:
         """

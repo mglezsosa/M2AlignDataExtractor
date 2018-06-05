@@ -7,6 +7,11 @@ class DataExtractorTest(unittest.TestCase):
     def setUp(self):
         self.data_extractor = DataExtractor(var_file='./VAR.BB11001.tsv', fun_file='./FUN.BB11001.tsv')
 
+    def test_DataExtractor_add_searcher(self):
+        srchr = BestStrikeSearcher()
+        self.data_extractor.add_searcher(srchr)
+        self.assertEqual(self.data_extractor._searchers, [srchr])
+
     def test_DataExtractor_all_objectives(self):
         finds = self.data_extractor.add_searcher(BestStrikeSearcher()) \
             .add_searcher(BestTCSearcher()) \
